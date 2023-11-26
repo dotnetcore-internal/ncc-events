@@ -1,0 +1,251 @@
+:root {
+    color-scheme: light dark;
+    --main-bg-color-from: #FAFCFF;
+    --main-bg-color-to: #EFF1F8;
+    --sub-bg-color: #FFFFFF;
+    --color: #524a58;
+    --sub-color: #000000;
+    --svg-pure-color: #524a58;
+    --delivery-line-color: #f4f4f4;
+    --logo-color: -webkit-linear-gradient(120deg, #bd34fe 30%, #41d1ff);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --main-bg-color-from: #1F1E28;
+        --main-bg-color-to: #131428;
+        --sub-bg-color: #000000;
+        --color: #ffffff;
+        --sub-color: #ffffff;
+        --svg-pure-color: #ffffff;
+        --delivery-line-color: #2f2f2f;
+        --logo-color: -webkit-linear-gradient(120deg, #bd34fe 30%, #41d1ff);
+    }
+}
+
+/* Lexend font family */
+/*noinspection ALL*/
+@font-face {
+    font-family: "Lexend";
+    font-style: normal;
+    font-weight: 900;
+    font-display: swap;
+    src: url("/fonts/Lexend/Lexend-Black.woff2") format("woff2");
+}
+
+/*noinspection ALL*/
+@font-face {
+    font-family: "Lexend";
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url("/fonts/Lexend/Lexend-ExtraBold.woff2") format("woff2");
+}
+
+/*noinspection ALL*/
+@font-face {
+    font-family: "Lexend";
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url("/fonts/Lexend/Lexend-Bold.woff2") format("woff2");
+}
+
+/*noinspection ALL*/
+@font-face {
+    font-family: "Lexend";
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url("/fonts/Lexend/Lexend-SemiBold.woff2") format("woff2");
+}
+
+/*noinspection ALL*/
+@font-face {
+    font-family: "Lexend";
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url("/fonts/Lexend/Lexend-Medium.woff2") format("woff2");
+}
+
+/*noinspection ALL*/
+@font-face {
+    font-family: "Lexend";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("/fonts/Lexend/Lexend-Regular.woff2") format("woff2");
+}
+
+/*noinspection ALL*/
+@font-face {
+    font-family: "Lexend";
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url("/fonts/Lexend/Lexend-Light.woff2") format("woff2");
+}
+
+/*noinspection ALL*/
+@font-face {
+    font-family: "Lexend";
+    font-style: normal;
+    font-weight: 200;
+    font-display: swap;
+    src: url("/fonts/Lexend/Lexend-ExtraLight.woff2") format("woff2");
+}
+
+/*noinspection ALL*/
+@font-face {
+    font-family: "Lexend";
+    font-style: normal;
+    font-weight: 100;
+    font-display: swap;
+    src: url("/fonts/Lexend/Lexend-Thin.woff2") format("woff2");
+}
+
+/* Poppins font family */
+/*noinspection ALL*/
+@font-face {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url("/fonts/Poppins/Poppins-Bold.woff2") format("woff2");
+}
+
+/*noinspection ALL*/
+@font-face {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url("/fonts/Poppins/Poppins-SemiBold.woff2") format("woff2");
+}
+
+/*noinspection ALL*/
+@font-face {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url("/fonts/Poppins/Poppins-Medium.woff2") format("woff2");
+}
+
+/*noinspection ALL*/
+@font-face {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("/fonts/Poppins/Poppins-Regular.woff2") format("woff2");
+}
+
+/*noinspection ALL*/
+@font-face {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url("/fonts/Poppins/Poppins-Light.woff2") format("woff2");
+}
+
+body {
+    -webkit-text-size-adjust: none;
+    font: 1em/1.5 'Microsoft YaHei', Helvetica, Arial, sans-serif;
+    background: #F8F8F8;
+}
+
+.min-h-75vh {
+    min-height: 75vh;
+}
+
+.max-h-50vh {
+    max-height: 50vh;
+}
+
+.max-w-90vw {
+    max-width: 90vw;
+}
+
+.h-50vh {
+    height: 50vh;
+}
+
+.top-25vh {
+    top: 25vh;
+}
+
+.mt-5px-negative {
+    margin-top: -5px;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #1d1f20;
+    }
+}
+
+.responsive-width {
+    @apply sm:max-w-xl md:max-w-3xl lg:max-w-5xl xl:max-w-7xl max-w-lg;
+    @apply mx-auto;
+}
+
+.content-paper {
+    @apply my-6 p-5 rounded-lg shadow;
+    @apply bg-white/50 dark:bg-black/50 backdrop-blur-3xl;
+}
+
+.markdown-body {
+    @apply !bg-transparent p-5 pb-10;
+
+    :is(ol) li {
+        @apply list-decimal;
+    }
+
+    :is(ul) li {
+        @apply list-disc;
+    }
+}
+
+.markdown-toc-right {
+
+    .markdown-body {
+
+        & nav.table-of-contents {
+
+            @apply fixed xl:p-5 p-0 top-10 right-0 xl:w-72 w-0 overflow-hidden;
+
+            :is(ol) {
+                @apply py-3 pl-4;
+            }
+
+            > ol {
+                @apply border-l border-gray-200 dark:border-gray-700;
+            }
+
+            :is(li) {
+                @apply list-none;
+                @apply text-sm leading-7;
+            }
+
+            :is(li) > ol > li {
+                @apply list-decimal;
+                @apply text-sm leading-7 text-black/50 dark:text-white/50;
+            }
+
+            :is(li) > ol > li > ol > li {
+                @apply list-disc;
+            }
+
+            :is(a) {
+                @apply text-sm leading-7 text-black/50 dark:text-white/50;
+                @apply hover:decoration-gray-300 dark:hover:decoration-gray-700;
+            }
+        }
+
+    }
+}
+
+
