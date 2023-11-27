@@ -58,10 +58,13 @@ const switchMobileMenu = () => {
 
       <left-right-layout>
         <template #left>
-          <div class="inline-block align-top">
+          <div class="inline-block align-top relative">
             <a href="https://ncc.work/" target="_blank" title=".NET Core Community">
               <img :src="useLogoUrl" width="180" alt="NCC" />
             </a>
+            <div class="sub-title-tip">
+              #Events!
+            </div>
           </div>
           <div class="ml-5 inline-block">
 
@@ -87,10 +90,13 @@ const switchMobileMenu = () => {
       <left-right-layout>
 
         <template #left>
-          <div class="inline-block align-top mt-2 ml-4">
+          <div class="inline-block align-top mt-2 ml-4 relative">
             <a href="https://ncc.work/" target="_blank" title=".NET Core Community">
               <img :src="useLogoUrl" width="140" alt="NCC" />
             </a>
+            <div class="sub-title-tip-2">
+              #E!
+            </div>
           </div>
         </template>
 
@@ -136,6 +142,18 @@ const switchMobileMenu = () => {
 <style scoped lang="css">
 .title-ul {
   @apply p-10;
+}
+
+.sub-title-tip {
+  @apply absolute bg-slate-300/30 px-1.5 left-24 -bottom-3;
+  @apply border border-slate-600 rounded-3xl rounded-tl-none;
+  @apply text-xs text-slate-500 font-black italic;
+}
+
+.sub-title-tip-2{
+  @apply absolute bg-slate-300/30 px-1.5 right-0 -bottom-3;
+  @apply border border-slate-600 rounded-3xl rounded-tl-none;
+  @apply text-xs text-slate-500 font-black italic;
 }
 
 #mobile-menu {
