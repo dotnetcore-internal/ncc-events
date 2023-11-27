@@ -1,0 +1,49 @@
+{
+  "_vendor.js": {
+    "file": "assets/vendor.js"
+  },
+  "index.css": {
+    "file": "assets/index.css",
+    "src": "index.css"
+  },
+  "index.html": {
+    "css": [
+      "assets/index.css"
+    ],
+    "dynamicImports": [
+      "src/views/HomeView.vue",
+      "src/views/Page404.vue"
+    ],
+    "file": "assets/index.js",
+    "imports": [
+      "_vendor.js"
+    ],
+    "isEntry": true,
+    "src": "index.html"
+  },
+  "src/views/HomeView.vue": {
+    "file": "assets/HomeView.js",
+    "imports": [
+      "index.html",
+      "_vendor.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/views/HomeView.vue"
+  },
+  "src/views/Page404.css": {
+    "file": "assets/Page404.css",
+    "src": "src/views/Page404.css"
+  },
+  "src/views/Page404.vue": {
+    "css": [
+      "assets/Page404.css"
+    ],
+    "file": "assets/Page404.js",
+    "imports": [
+      "index.html",
+      "_vendor.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/views/Page404.vue"
+  }
+}
