@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import { usePreferredDark } from "@vueuse/core";
+import {computed, ref} from "vue";
+import {usePreferredDark} from "@vueuse/core";
+import {useUiStore} from "@/stores/uiStore";
+import {lockBody, unlockBody} from "@/hooks/usePageToolkits";
 
-import { useUiStore } from "@/stores/uiStore";
-import { go, lockBody, unlockBody } from "@/hooks/usePageToolkits";
-
-import { Close, HamburgerButton } from "@icon-park/vue-next";
+import {Close, HamburgerButton} from "@icon-park/vue-next";
 
 import JoinUsButton from "@/components/common/JoinUsButton.vue";
 import LeftRightLayout from "@/components/basic/LeftRightLayout.vue";
@@ -16,20 +15,21 @@ const currentPrefersDarkMode = usePreferredDark();
 
 const useLogoUrl = computed(() => {
   return currentPrefersDarkMode.value
-    ? "/images/logo-header-dark.png"
-    : "/images/logo-header-light.png";
+      ? "/images/logo-header-dark.png"
+      : "/images/logo-header-light.png";
 });
 
 const useIconColor = computed(() => {
   return currentPrefersDarkMode.value
-    ? "#f8f8f8"
-    : "#000000";
+      ? "#f8f8f8"
+      : "#000000";
 });
 
 const useHeaderClass = computed(() => {
-  return uiStore.isMobileMode
-    ? "bg-white dark:bg-black"
-    : "backdrop-blur-md bg-white/75 dark:bg-black/75";
+  return "bg-white dark:bg-black";
+  // return uiStore.isMobileMode
+  //     ? "bg-white dark:bg-black"
+  //     : "backdrop-blur-md bg-white/75 dark:bg-black/75";
 });
 
 //region Mobile Mode
@@ -52,7 +52,7 @@ const switchMobileMenu = () => {
 <template>
 
   <header :class="useHeaderClass"
-          class="h-20 w-full shadow-md fixed left-0 top-0 right-0 z-50">
+          class="header-wrapper h-20 w-full shadow-md fixed left-0 top-0 right-0 z-50">
 
     <div class="responsive-width" v-show="!uiStore.isMobileMode">
 
@@ -60,7 +60,7 @@ const switchMobileMenu = () => {
         <template #left>
           <div class="inline-block align-top relative">
             <a href="https://ncc.work/" target="_blank" title=".NET Core Community">
-              <img :src="useLogoUrl" width="180" alt="NCC" />
+              <img :src="useLogoUrl" width="180" alt="NCC"/>
             </a>
             <div class="sub-title-tip">
               #Events!
@@ -92,7 +92,7 @@ const switchMobileMenu = () => {
         <template #left>
           <div class="inline-block align-top mt-2 ml-4 relative">
             <a href="https://ncc.work/" target="_blank" title=".NET Core Community">
-              <img :src="useLogoUrl" width="140" alt="NCC" />
+              <img :src="useLogoUrl" width="140" alt="NCC"/>
             </a>
             <div class="sub-title-tip-2">
               #E!
@@ -102,8 +102,8 @@ const switchMobileMenu = () => {
 
         <template #right>
           <div class="mr-8 mt-8 cursor-pointer" @click="switchMobileMenu">
-            <hamburger-button v-show="!displayMobileMenu" theme="filled" size="28" :fill="useIconColor" />
-            <close v-show="displayMobileMenu" theme="filled" size="28" :fill="useIconColor" />
+            <hamburger-button v-show="!displayMobileMenu" theme="filled" size="28" :fill="useIconColor"/>
+            <close v-show="displayMobileMenu" theme="filled" size="28" :fill="useIconColor"/>
           </div>
         </template>
 
@@ -145,14 +145,14 @@ const switchMobileMenu = () => {
 }
 
 .sub-title-tip {
-  @apply absolute bg-slate-300/30 px-1.5 left-24 -bottom-3;
-  @apply border border-slate-600 rounded-3xl rounded-tl-none;
+  @apply absolute bg-slate-300/30 px-1.5 -right-3 top-6;
+  @apply border border-slate-600 rounded-3xl rounded-bl-none;
   @apply text-xs text-slate-500 font-black italic;
 }
 
-.sub-title-tip-2{
-  @apply absolute bg-slate-300/30 px-1.5 right-0 -bottom-3;
-  @apply border border-slate-600 rounded-3xl rounded-tl-none;
+.sub-title-tip-2 {
+  @apply absolute bg-slate-300/30 px-1.5 right-0 top-4;
+  @apply border border-slate-600 rounded-3xl rounded-bl-none;
   @apply text-xs text-slate-500 font-black italic;
 }
 

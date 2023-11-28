@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
-import { useMouseInElement } from "@vueuse/core";
+import {computed, nextTick, onMounted, onUnmounted, ref, watch} from "vue";
+import {useMouseInElement} from "@vueuse/core";
 
-import { useEmitter } from "@/hooks/useEmitter";
+import {useEmitter} from "@/hooks/useEmitter";
 
 import PlaceholderBlock from "@/components/blocks/PlaceholderBlock.vue";
 
@@ -14,8 +14,8 @@ const emitter = useEmitter();
 
 const itemTarget = ref(null);
 const panelTarget = ref(null);
-const { isOutside: itemIsOutside } = useMouseInElement(itemTarget);
-const { isOutside: panelIsOutside } = useMouseInElement(panelTarget);
+const {isOutside: itemIsOutside} = useMouseInElement(itemTarget);
+const {isOutside: panelIsOutside} = useMouseInElement(panelTarget);
 
 const hidePanelCommandRef = ref<boolean | null>(null);
 
@@ -63,11 +63,10 @@ const displayPanel = computed(() => {
   return !itemIsOutsideRef.value || !panelIsOutsideRef.value;
 });
 
-
 watch(displayPanel, (value) => {
   if (value) {
     // console.log("displayPanel", props.featureKey);
-    emitter.emit("toSelectHeaderPanelFor", { featureKey: props.featureKey });
+    emitter.emit("toSelectHeaderPanelFor", {featureKey: props.featureKey});
   } else {
     // console.log("hidePanel", props.featureKey);
   }
@@ -89,7 +88,7 @@ onUnmounted(() => {
 
 <template>
   <a href="#" @click.prevent
-     class="block-title text-gray-500 text-sm text-center z-50"
+     class="block-title text-gray-500 text-sm text-center z-50 relative"
      :class="{
         'border-b-4': displayPanel,
         'border-purple-800': displayPanel,
@@ -105,7 +104,7 @@ onUnmounted(() => {
   <transition enter-active-class="animate__animated animate__fadeIn animate__faster">
     <!--leave-active-class="animate__animated animate__fadeOut animate__fast"-->
 
-    <div class="block-body" ref="panelTarget" v-show="displayPanel">
+    <div class="block-body block-compensation" ref="panelTarget" v-show="displayPanel">
 
       <div class="w-full h-0.5 bg-purple-600/40"></div>
 
@@ -135,6 +134,7 @@ onUnmounted(() => {
     </div>
 
   </transition>
+
 
 </template>
 
