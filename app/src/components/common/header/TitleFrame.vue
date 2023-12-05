@@ -2,7 +2,7 @@
 import {computed, ref} from "vue";
 import {usePreferredDark} from "@vueuse/core";
 import {useUiStore} from "@/stores/uiStore";
-import {lockBody, unlockBody} from "@/hooks/usePageToolkits";
+import {go, lockBody, unlockBody} from "@/hooks/usePageToolkits";
 
 import {Close, HamburgerButton} from "@icon-park/vue-next";
 
@@ -59,7 +59,7 @@ const switchMobileMenu = () => {
       <left-right-layout>
         <template #left>
           <div class="inline-block align-top relative">
-            <a href="https://ncc.work/" target="_blank" title=".NET Core Community">
+            <a href="/" @click.prevent="go('home')" title="Events Home of .NET Core Community">
               <img :src="useLogoUrl" width="180" alt="NCC"/>
             </a>
             <div class="sub-title-tip">
@@ -91,7 +91,7 @@ const switchMobileMenu = () => {
 
         <template #left>
           <div class="inline-block align-top mt-2 ml-4 relative">
-            <a href="https://ncc.work/" target="_blank" title=".NET Core Community">
+            <a href="/" @click.prevent="go('home')" title="Events Home of .NET Core Community">
               <img :src="useLogoUrl" width="140" alt="NCC"/>
             </a>
             <div class="sub-title-tip-2">
