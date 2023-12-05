@@ -26,6 +26,8 @@ const props = withDefaults(defineProps<{
   withShadow?: boolean;
   withScale?: boolean;
   infiniteHorizontalForGrid?: boolean;
+  openInNewTab?: boolean;
+  imageStyle?: string;
 }>(), {
   defaultDisplayMode: "grid",
   displayAuthorBy: false,
@@ -40,7 +42,8 @@ const props = withDefaults(defineProps<{
   limitedItems: 0,
   withShadow: false,
   withScale: true,
-  infiniteHorizontalForGrid: false
+  infiniteHorizontalForGrid: false,
+  openInNewTab: true
 });
 
 
@@ -66,14 +69,14 @@ const useArticles = computed(() => {
 const currentPrefersDarkMode = usePreferredDark();
 const useIconColor = computed(() => {
   return currentPrefersDarkMode.value
-    ? "#f8f8f8"
-    : "#000000";
+      ? "#f8f8f8"
+      : "#000000";
 });
 
 const useIconTheme = (mode: "grid" | "list" | "card" | "block" | "pure-block") => {
   return currentDisplayMode.value === mode
-    ? "filled"
-    : "outline";
+      ? "filled"
+      : "outline";
 };
 
 </script>
@@ -136,10 +139,12 @@ const useIconTheme = (mode: "grid" | "list" | "card" | "block" | "pure-block") =
                       :author="(article as hasAuthor)?.author"
                       :title-tip="article.title"
                       :base-url="baseUrl"
+                      :display-description="displayDescription"
                       :display-author-mode="displayAuthorMode"
                       :display-author-by="displayAuthorBy"
                       :display-date="displayDate"
                       :with-shadow="withShadow"
+                      :open-in-new-tab="openInNewTab"
     >
 
       <template #default>
@@ -158,17 +163,19 @@ const useIconTheme = (mode: "grid" | "list" | "card" | "block" | "pure-block") =
        v-show="currentDisplayMode === 'pure-block'">
 
     <article-as-pure-block v-for="article in useArticles"
-                      :key="article.id"
-                      :id="article.id"
-                      :image="article.img"
-                      :date="new Date(article.date)"
-                      :author="(article as hasAuthor)?.author"
-                      :title-tip="article.title"
-                      :base-url="baseUrl"
-                      :display-author-mode="displayAuthorMode"
-                      :display-author-by="displayAuthorBy"
-                      :display-date="displayDate"
-                      :with-shadow="withShadow"
+                           :key="article.id"
+                           :id="article.id"
+                           :image="article.img"
+                           :date="new Date(article.date)"
+                           :author="(article as hasAuthor)?.author"
+                           :title-tip="article.title"
+                           :base-url="baseUrl"
+                           :display-description="displayDescription"
+                           :display-author-mode="displayAuthorMode"
+                           :display-author-by="displayAuthorBy"
+                           :display-date="displayDate"
+                           :with-shadow="withShadow"
+                           :open-in-new-tab="openInNewTab"
     >
 
       <template #default>
@@ -198,12 +205,14 @@ const useIconTheme = (mode: "grid" | "list" | "card" | "block" | "pure-block") =
                      :author="(article as hasAuthor)?.author"
                      :title-tip="article.title"
                      :base-url="baseUrl"
+                     :display-description="displayDescription"
                      :display-author-mode="displayAuthorMode"
                      :display-author-by="displayAuthorBy"
                      :display-date="displayDate"
                      :with-shadow="withShadow"
                      :with-scale="withScale"
                      :infinite-horizontal="infiniteHorizontalForGrid"
+                     :open-in-new-tab="openInNewTab"
     >
 
       <template #default>
@@ -225,14 +234,17 @@ const useIconTheme = (mode: "grid" | "list" | "card" | "block" | "pure-block") =
                      :key="article.id"
                      :id="article.id"
                      :image="article.img"
+                     :image-style="imageStyle"
                      :date="new Date(article.date)"
                      :author="(article as hasAuthor)?.author"
                      :title-tip="article.title"
                      :base-url="baseUrl"
+                     :display-description="displayDescription"
                      :display-author-mode="displayAuthorMode"
                      :display-author-by="displayAuthorBy"
                      :display-date="displayDate"
                      :with-shadow="withShadow"
+                     :open-in-new-tab="openInNewTab"
     >
 
       <template #default>
@@ -258,9 +270,11 @@ const useIconTheme = (mode: "grid" | "list" | "card" | "block" | "pure-block") =
                      :author="(article as hasAuthor)?.author"
                      :title-tip="article.title"
                      :base-url="baseUrl"
+                     :display-description="displayDescription"
                      :display-author-mode="displayAuthorMode"
                      :display-author-by="displayAuthorBy"
                      :display-date="displayDate"
+                     :open-in-new-tab="openInNewTab"
     >
 
       <template #default>

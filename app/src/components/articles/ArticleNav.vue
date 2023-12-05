@@ -12,12 +12,30 @@ const props = withDefaults(defineProps<{
   go: (pageNumber: number) => {};
   baseUrl?: string;
   useTitle?: string;
+  useFolioMode?: "default" | "name" | "folio";
   hiddenIfBtnDisabled?: boolean;
   alignCenter?: boolean;
+  enableFirstBtn?: boolean;
+  enableLastBtn?: boolean;
+  enablePreviousBtn?: boolean;
+  enableNextBtn?: boolean;
+  displayFirstBtnMode?: "default" | "folio" | "customized";
+  displayLastBtnMode?: "default" | "folio" | "customized";
+  displayPreviousBtnMode?: "default" | "customized";
+  displayNextBtnMode?: "default" | "customized";
 }>(), {
   useTitle: "",
+  useFolioMode: "default",
   hiddenIfBtnDisabled: false,
-  alignCenter: true
+  alignCenter: true,
+  enableFirstBtn: true,
+  enableLastBtn: true,
+  enablePreviousBtn: true,
+  enableNextBtn: true,
+  displayFirstBtnMode: "default",
+  displayLastBtnMode: "default",
+  displayPreviousBtnMode: "default",
+  displayNextBtnMode: "default"
 });
 
 const hasPreviousBtn = computed(() => {
@@ -63,8 +81,8 @@ const useAvailablePageNumbers = computed(() => {
 const getHref = (pageNumber: number) => {
   if (props.baseUrl) {
     return pageNumber === 1
-      ? `${props.baseUrl}`
-      : `${props.baseUrl}/page/${pageNumber}`;
+        ? `${props.baseUrl}`
+        : `${props.baseUrl}/page/${pageNumber}`;
   } else {
     return "javascript:;";
   }
@@ -99,45 +117,118 @@ const go = (pageNumber: number) => {
   props.go(pageNumber);
 };
 
+const folioToName = (pageNumber: number) => {
+  if (props.useFolioMode !== "name")
+    return pageNumber;
+
+  if (!props.descriptor.nameSeries)
+    return pageNumber;
+
+  const index = pageNumber - 1;
+
+  if (index < 0 || index >= props.descriptor.nameSeries.length)
+    return pageNumber;
+
+  return props.descriptor.nameSeries[index];
+};
+
+const useFirstFolioOrName = computed(() => {
+  if (!props.enableFirstBtn)
+    return "";
+  if (props.useFolioMode === "name") {
+    return props.descriptor.nameSeries ? props.descriptor.nameSeries[0] : 1;
+  } else {
+    return 1;
+  }
+});
+
+const useLastFolioOrName = computed(() => {
+  if (!props.enableLastBtn)
+    return "";
+  if (props.useFolioMode === "name") {
+    return props.descriptor.nameSeries ? props.descriptor.nameSeries[props.descriptor.nameSeries.length - 1] : props.descriptor.total;
+  } else {
+    return props.descriptor.total;
+  }
+});
+
 </script>
 
 <template>
 
   <div class="article-pagination" :class="{'justify-center': alignCenter}">
 
-    <a @click.prevent="first" :href="getHref(1)"
+    <a v-if="enableFirstBtn"
+       @click.prevent="first" :href="getHref(1)"
        :class="{disabled: descriptor.current === 1, conceal: descriptor.current === 1 && hiddenIfBtnDisabled}">
-      {{ $t("page.first") }}
+      <span v-if="displayFirstBtnMode === 'folio'">
+        {{ useFirstFolioOrName }}
+      </span>
+      <span v-else-if="displayFirstBtnMode === 'customized'">
+        <slot name="first-btn">
+          {{ $t("page.first") }}
+        </slot>
+      </span>
+      <span v-else>
+        {{ $t("page.first") }}
+      </span>
     </a>
 
-    <a @click.prevent='previous'
+    <a v-if="enablePreviousBtn"
+       @click.prevent='previous'
        :href="getHref(descriptor.current-1)"
        :class="{disabled: !hasPreviousBtn, conceal: !hasPreviousBtn && hiddenIfBtnDisabled}">
-      {{ $t("page.previous") }}
+      <span v-if="displayPreviousBtnMode === 'customized'">
+        <slot name="previous-btn">
+          {{ $t("page.previous") }}
+        </slot>
+      </span>
+      <span v-else>
+        {{ $t("page.previous") }}
+      </span>
     </a>
 
-    <span v-if='descriptor.current > 3'>...</span>
+    <span v-if='enablePreviousBtn && descriptor.current > 3'>...</span>
 
     <a v-for='pageNumber in useAvailablePageNumbers'
        @click.prevent='go(pageNumber)'
        :href="getHref(pageNumber)"
        :class='{active: descriptor.current===pageNumber}'
        :key='pageNumber'>
-      {{ pageNumber }}
+      {{ folioToName(pageNumber) }}
     </a>
 
-    <span v-if='descriptor.current < descriptor.total - 2'>...</span>
+    <span v-if='enableNextBtn && descriptor.current < descriptor.total - 2'>...</span>
 
-    <a @click.prevent='next'
+    <a v-if="enableNextBtn"
+       @click.prevent='next'
        :href="getHref(descriptor.current+1)"
        :class='{disabled: !hasNextBtn,conceal:!hasNextBtn && hiddenIfBtnDisabled}'>
-      {{ $t("page.next") }}
+      <span v-if="displayNextBtnMode === 'customized'">
+        <slot name="next-btn">
+          {{ $t("page.next") }}
+        </slot>
+      </span>
+      <span v-else>
+        {{ $t("page.next") }}
+      </span>
     </a>
 
-    <a @click.prevent="last"
+    <a v-if="enableLastBtn"
+       @click.prevent="last"
        :href="getHref(descriptor.total)"
        :class="{disabled: descriptor.current === descriptor.total,conceal: descriptor.current === descriptor.total && hiddenIfBtnDisabled}">
-      {{ $t("page.last") }}
+      <span v-if="displayLastBtnMode === 'folio'">
+        {{ useLastFolioOrName }}
+      </span>
+      <span v-else-if="displayLastBtnMode === 'customized'">
+        <slot name="last-btn">
+          {{ $t("page.last") }}
+        </slot>
+      </span>
+      <span v-else>
+        {{ $t("page.last") }}
+      </span>
     </a>
 
   </div>

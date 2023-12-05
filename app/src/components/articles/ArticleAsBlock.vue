@@ -19,13 +19,15 @@ const props = withDefaults(defineProps<{
   displayDescription?: boolean;
   displayDate?: boolean;
   withShadow?: boolean;
+  openInNewTab?: boolean;
 }>(), {
   displayAuthorMode: "hide",
   displayAuthorBy: false,
   displayDescription: false,
   displayDate: true,
   author: null,
-  withShadow: true
+  withShadow: true,
+  openInNewTab: true
 });
 
 const uiStore = useUiStore();
@@ -50,6 +52,10 @@ const useArticleUrl = computed(() => {
   const year = displayDate(props.date, "YYYY");
   const month = displayDate(props.date, "MM");
   return `${props.baseUrl}/${year}/${month}/${props.id}`;
+});
+
+const useTarget = computed(() => {
+  return props.openInNewTab ? '_blank' : '_self';
 });
 
 //region Author Display Options
@@ -156,7 +162,7 @@ onMounted(() => {
 
 <template>
   <div class="article-block" :class="{'shadow-md': props.withShadow}">
-    <anchor class="block w-full h-4/5" :href="useArticleUrl" :title="useTitleTip" target="_blank" mode="classic">
+    <anchor class="block w-full h-4/5" :href="useArticleUrl" :title="useTitleTip" :target="useTarget" mode="classic">
 
       <div class="w-full relative">
         <img :src="useImageUrl" :alt="useTitleTip" class="w-full" />

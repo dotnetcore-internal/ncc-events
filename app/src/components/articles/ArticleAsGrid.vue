@@ -21,6 +21,7 @@ const props = withDefaults(defineProps<{
   withShadow?: boolean;
   withScale?: boolean;
   infiniteHorizontal?: boolean;
+  openInNewTab?: boolean;
 }>(), {
   displayAuthorMode: "hide",
   displayAuthorBy: false,
@@ -29,7 +30,8 @@ const props = withDefaults(defineProps<{
   author: null,
   withShadow: true,
   withScale: true,
-  infiniteHorizontal: false
+  infiniteHorizontal: false,
+  openInNewTab: true
 });
 
 const uiStore = useUiStore();
@@ -54,6 +56,10 @@ const useArticleUrl = computed(() => {
   const year = displayDate(props.date, "YYYY");
   const month = displayDate(props.date, "MM");
   return `${props.baseUrl}/${year}/${month}/${props.id}`;
+});
+
+const useTarget = computed(() => {
+  return props.openInNewTab ? '_blank' : '_self';
 });
 
 //region Author Display Options
@@ -162,7 +168,7 @@ onMounted(() => {
 
   <div class="article-grid" :class="{'shadow-md': withShadow, 'hover:scale-105': withScale }">
 
-    <anchor class="block w-full h-4/5" :href="useArticleUrl" :title="useTitleTip" target="_blank" mode="classic">
+    <anchor class="block w-full h-4/5" :href="useArticleUrl" :title="useTitleTip" :target="useTarget" mode="classic">
       <img :src="useImageUrl" :alt="useTitleTip" />
       <span class="block px-5 py-7 text-lg font-bold">
         <slot></slot>

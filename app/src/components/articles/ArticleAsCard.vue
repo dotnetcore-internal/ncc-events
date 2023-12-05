@@ -9,6 +9,7 @@ import Anchor from "@/components/basic/AnchorElement.vue";
 const props = withDefaults(defineProps<{
   id: string;
   image: string;
+  imageStyle?: string;
   date: Date;
   titleTip?: string;
   url?: string;
@@ -19,13 +20,15 @@ const props = withDefaults(defineProps<{
   displayDescription?: boolean;
   displayDate?: boolean;
   withShadow?: boolean;
+  openInNewTab?: boolean;
 }>(), {
   displayAuthorMode: "hide",
   displayAuthorBy: false,
   displayDescription: false,
   displayDate: true,
   author: null,
-  withShadow: false
+  withShadow: false,
+  openInNewTab: true
 });
 
 const uiStore = useUiStore();
@@ -44,12 +47,20 @@ const useImageUrl = computed(() => {
   return `/content${props.baseUrl}/${year}/${month}/${props.id}/assets/${props.image}`;
 });
 
+const useImageStyle = computed(() => {
+  return props.imageStyle ?? "";
+})
+
 const useArticleUrl = computed(() => {
   if (props.url)
     return props.url;
   const year = displayDate(props.date, "YYYY");
   const month = displayDate(props.date, "MM");
   return `${props.baseUrl}/${year}/${month}/${props.id}`;
+});
+
+const useTarget = computed(() => {
+  return props.openInNewTab ? '_blank' : '_self';
 });
 
 //region Author Display Options
@@ -156,11 +167,11 @@ onMounted(() => {
 
 <template>
   <div class="article-card" :class="{'shadow-md':withShadow,'hover:shadow-lg':withShadow}">
-    <anchor class="block w-full h-4/5" :href="useArticleUrl" :title="useTitleTip" target="_blank" mode="classic">
+    <anchor class="block w-full h-4/5" :href="useArticleUrl" :title="useTitleTip" :target="useTarget" mode="classic">
 
       <div class="md:flex p-5">
 
-        <div class="flex-none md:w-72 w-0 overflow-hidden">
+        <div class="flex-none md:w-72 w-0 overflow-hidden" :style="useImageStyle">
           <img :src="useImageUrl" :alt="useTitleTip" />
         </div>
 

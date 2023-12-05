@@ -18,12 +18,14 @@ const props = withDefaults(defineProps<{
   displayAuthorBy?: boolean;
   displayDescription?: boolean;
   displayDate?: boolean;
+  openInNewTab?: boolean;
 }>(), {
   displayAuthorMode: "hide",
   displayAuthorBy: false,
   displayDescription: false,
   displayDate: true,
-  author: null
+  author: null,
+  openInNewTab: true
 });
 
 const uiStore = useUiStore();
@@ -42,6 +44,10 @@ const useArticleUrl = computed(() => {
   const year = displayDate(props.date, "YYYY");
   const month = displayDate(props.date, "MM");
   return `${props.baseUrl}/${year}/${month}/${props.id}`;
+});
+
+const useTarget = computed(() => {
+  return props.openInNewTab ? '_blank' : '_self';
 });
 
 //region Author Display Options
@@ -148,7 +154,7 @@ onMounted(() => {
 
 <template>
   <div class="article-list">
-    <anchor class="block w-full h-4/5 p-5" :href="useArticleUrl" :title="useTitleTip" target="_blank" mode="classic">
+    <anchor class="block w-full h-4/5 p-5" :href="useArticleUrl" :title="useTitleTip" :target="useTarget" mode="classic">
 
       <div class="md:flex">
 
