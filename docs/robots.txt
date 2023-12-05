@@ -1,1 +1,1 @@
-Sitemap: https://contribute.ncc.work/sitemap.txt
+Sitemap: https://events.ncc.work/sitemap.txt

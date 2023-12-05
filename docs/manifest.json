@@ -12,6 +12,10 @@
     ],
     "dynamicImports": [
       "src/views/HomeView.vue",
+      "src/views/MeetupsView.vue",
+      "src/views/MeetupsPage.vue",
+      "src/views/EventView.vue",
+      "src/views/EventView.vue",
       "src/views/Page404.vue"
     ],
     "file": "assets/index.js",
@@ -21,6 +25,15 @@
     "isEntry": true,
     "src": "index.html"
   },
+  "src/views/EventView.vue": {
+    "file": "assets/EventView.js",
+    "imports": [
+      "index.html",
+      "_vendor.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/views/EventView.vue"
+  },
   "src/views/HomeView.vue": {
     "file": "assets/HomeView.js",
     "imports": [
@@ -29,6 +42,24 @@
     ],
     "isDynamicEntry": true,
     "src": "src/views/HomeView.vue"
+  },
+  "src/views/MeetupsPage.vue": {
+    "file": "assets/MeetupsPage.js",
+    "imports": [
+      "index.html",
+      "_vendor.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/views/MeetupsPage.vue"
+  },
+  "src/views/MeetupsView.vue": {
+    "file": "assets/MeetupsView.js",
+    "imports": [
+      "index.html",
+      "_vendor.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/views/MeetupsView.vue"
   },
   "src/views/Page404.css": {
     "file": "assets/Page404.css",
